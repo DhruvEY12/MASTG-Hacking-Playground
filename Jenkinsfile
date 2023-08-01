@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('MobSF-Scan') {
       steps {
-        sh 'mobsfscan MASTG-Hacking-Playground/iOS/MSTG-JWT/'
+        sh 'NO_COLOR=1 mobsfscan MASTG-Hacking-Playground/iOS/MSTG-JWT/'
       }
     }
   }
