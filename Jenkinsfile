@@ -19,6 +19,7 @@ pipeline {
                     def scanJSONPath = "${WORKSPACE}/mobscan.json"
                     def scanJSONContent = readFile file: scanJSONPath
                     def defectDojoPayload = [
+                        product_name: 'Product-II',
                         engagement: 'Mobsfscan Report',
                         scan_type: 'Mobsfscan Scan',
                         file: scanJSONContent, 
