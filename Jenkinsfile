@@ -32,7 +32,7 @@ pipeline {
                         httpMode: 'POST',
                         requestBody: groovy.json.JsonOutput.toJson(defectDojoPayload),
                         responseHandle: 'NONE',
-                        url: "${DEFECTDOJO_URL}/api/v2/import-scan/"
+                        url: "${DEFECTDOJO_URL}/api/v2/reimport-scan/"
                     )
 
                     if (response.status == 201) {
