@@ -20,8 +20,10 @@ pipeline {
                     def scanJSONContent = readFile file: scanJSONPath
                     def defectDojoPayload = [
                         engagement: 'Mobsfscan Report',
-                        test_type: 'Mobsfscan Scan',
-                        file: scanJSONContent
+                        scan_type: 'Mobsfscan Scan',
+                        file: scanJSONContent, 
+                        verified: 1,
+                        active: 1
                     ]
 
                     // Upload scan JSON to DefectDojo
