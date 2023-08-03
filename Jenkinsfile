@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('MobSF-Scan') {
       steps {
-        sh 'mobsfscan iOS/MSTG-JWT/'
+        sh 'mobsfscan iOS/MSTG-JWT/ --json -o mobscan.json'
       }
     }
   }
