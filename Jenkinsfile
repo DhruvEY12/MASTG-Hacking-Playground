@@ -22,9 +22,8 @@ pipeline {
                         product_name: 'Product-II',
                         engagement: 'Mobsfscan Report',
                         scan_type: 'Mobsfscan Scan',
-                        file: scanJSONContent, 
-                        verified: 1,
-                        active: 1
+                        verified: true,
+                        active: true
                     ]
 
                     // Upload scan JSON to DefectDojo
