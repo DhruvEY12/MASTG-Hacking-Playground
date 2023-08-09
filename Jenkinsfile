@@ -12,9 +12,15 @@ pipeline {
     stage('Push to DefectDojo') {
       steps {
         script {
-        def engagementName = "Engagement-${BUILD_ID}"
-        echo "Generated Engagement Name: ${engagementName}"
+          def engagementName = "Engagement-${BUILD_NUMBER}-${currentBuild.timestamp.format('yyyyMMdd-HHmmss')}"
+          echo "Generated Engagement Name: ${engagementName}"
+
+          // Store the engagementName in an environment variable
+          env.ENGAGEMENT_NAME = engagementName
+        //def engagementName = "Engagement-${BUILD_ID}"
+        //echo "Generated Engagement Name: ${engagementName}"
         //Use 'engagementName' further in your pipeline
+        
         }
         sh '''
         curl -X 'POST' \
@@ -27,7 +33,7 @@ pipeline {
         -F 'do_not_reactivate=false' \
         -F 'verified=true' \
         -F 'close_old_findings=true' \
-        -F 'engagement_name=${engagementName}' \
+        -F 'engagement_name=${env.ENGAGEMENT_NAME}' \
         -F 'push_to_jira=false' \
         -F 'minimum_severity=Info' \
         -F 'close_old_findings_product_scope=false' \
