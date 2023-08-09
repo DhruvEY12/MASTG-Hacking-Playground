@@ -27,7 +27,7 @@ pipeline {
         -F 'do_not_reactivate=false' \
         -F 'verified=true' \
         -F 'close_old_findings=true' \
-        -F 'engagement_name=Engagement-${BUILD_ID}' \
+        -F 'engagement_name=${engagementName}' \
         -F 'push_to_jira=false' \
         -F 'minimum_severity=Info' \
         -F 'close_old_findings_product_scope=false' \
