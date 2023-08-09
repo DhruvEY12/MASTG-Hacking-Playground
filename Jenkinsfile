@@ -15,6 +15,7 @@ pipeline {
         def engagementName = "Engagement-${BUILD_ID}"
         echo "Generated Engagement Name: ${engagementName}"
         //Use 'engagementName' further in your pipeline
+        }
         sh '''
         curl -X 'POST' \
         'https://defectdojo.dalmiabharat.com/api/v2/reimport-scan/' \
@@ -26,7 +27,7 @@ pipeline {
         -F 'do_not_reactivate=false' \
         -F 'verified=true' \
         -F 'close_old_findings=true' \
-        -F 'engagement_name=${engagementName}' \
+        -F 'engagement_name=Engagement-${BUILD_ID}' \
         -F 'push_to_jira=false' \
         -F 'minimum_severity=Info' \
         -F 'close_old_findings_product_scope=false' \
@@ -37,7 +38,6 @@ pipeline {
         -F 'auto_create_context=true' \
         -F 'scan_type=Mobsfscan Scan' 
         '''
-        }
       }      
     }
   }
