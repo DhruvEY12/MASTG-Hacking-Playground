@@ -37,8 +37,7 @@ pipeline {
                         -F 'product_name=Product-II' \
                         -F 'file=@mobsfscan.json;type=application/json' \
                         -F 'auto_create_context=true' \
-                        -F 'scan_type=Mobsfscan Scan' 
-                        "
+                        -F 'scan_type=Mobsfscan Scan'"
                     }
                 }
             }
