@@ -12,7 +12,7 @@ pipeline {
                 script {
                     def buildNumber = currentBuild.getNumber()
                     def timestamp = new Date().format("dd-MM-yyyy_HH:mm:ss", TimeZone.getTimeZone("Asia/Kolkata"))
-                    def engagementName = "Engagement-${buildNumber}_Timestamp-${timestamp}"
+                    def engagementName = Engagement-${buildNumber}_Timestamp-${timestamp}
 
                     echo "Engagement Name: ${engagementName}"
                     
@@ -28,7 +28,7 @@ pipeline {
                         -F 'do_not_reactivate=false' \
                         -F 'verified=true' \
                         -F 'close_old_findings=true' \
-                        -F 'engagement="${engagementName}"' \
+                        -F 'engagement=${engagementName}' \
                         -F 'push_to_jira=false' \
                         -F 'minimum_severity=Info' \
                         -F 'close_old_findings_product_scope=false' \
