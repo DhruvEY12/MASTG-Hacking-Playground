@@ -11,12 +11,12 @@ pipeline {
             steps {
                 script {
                     def buildNumber = currentBuild.getNumber()
-                    def engagementId = buildNumber.toString()
-                    // def timestamp = new Date().format("dd-MM-yyyy_HH:mm:ss", TimeZone.getTimeZone("Asia/Kolkata"))
-                    // def engagementName = "Engagement-${buildNumber}_Timestamp-${timestamp}"
+                    // def engagementId = buildNumber.toString()
+                    def timestamp = new Date().format("dd-MM-yyyy_HH:mm:ss", TimeZone.getTimeZone("Asia/Kolkata"))
+                    def engagementName = "Engagement-${buildNumber}_Timestamp-${timestamp}"
 
-                    // echo "Engagement Name: ${engagementName}"
-                    echo "Engagement ID: ${engagementId}"
+                    echo "Engagement Name: ${engagementName}"
+                    // echo "Engagement ID: ${engagementId}"
                     
                     // Use the engagementName in your curl command
                     // sh "curl -X POST -d 'engagement=${engagementName}' http://your-api-endpoint"
@@ -30,7 +30,7 @@ pipeline {
                         -F 'do_not_reactivate=false' \
                         -F 'verified=true' \
                         -F 'close_old_findings=true' \
-                        -F 'engagement=${engagementId}' \
+                        -F 'engagement_name=${engagementName}' \
                         -F 'push_to_jira=false' \
                         -F 'minimum_severity=Info' \
                         -F 'close_old_findings_product_scope=false' \
