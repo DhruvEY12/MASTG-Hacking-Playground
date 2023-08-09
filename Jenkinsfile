@@ -18,8 +18,7 @@ pipeline {
                     
                     // Use the engagementName in your curl command
                     // sh "curl -X POST -d 'engagement=${engagementName}' http://your-api-endpoint"
-                       sh '''
-                        curl -X 'POST' \
+                       sh "curl -X 'POST' \
                         'https://defectdojo.dalmiabharat.com/api/v2/reimport-scan/' \
                         -H 'accept: application/json' \
                         -H 'Authorization: Token 212983a2789afcd09f252a66d83b46a8fa4a8c39' \
@@ -39,7 +38,7 @@ pipeline {
                         -F 'file=@mobsfscan.json;type=application/json' \
                         -F 'auto_create_context=true' \
                         -F 'scan_type=Mobsfscan Scan' 
-                        '''
+                        "
                     }
                 }
             }
