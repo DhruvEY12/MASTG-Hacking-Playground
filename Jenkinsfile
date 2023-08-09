@@ -12,11 +12,11 @@ pipeline {
     stage('Push to DefectDojo') {
       steps {
         script {
-          def engagementName = "Engagement-${BUILD_NUMBER}-${currentBuild.timestamp.format('yyyyMMdd-HHmmss')}"
-          echo "Generated Engagement Name: ${engagementName}"
-
-          // Store the engagementName in an environment variable
-          env.ENGAGEMENT_NAME = engagementName
+        def engagementName = "Engagement-${BUILD_NUMBER}-${currentBuild.timestamp.format('yyyyMMdd-HHmmss')}"
+        echo "Generated Engagement Name: ${engagementName}"
+          
+        // Store the engagementName in an environment variable
+        env.ENGAGEMENT_NAME = engagementName
         //def engagementName = "Engagement-${BUILD_ID}"
         //echo "Generated Engagement Name: ${engagementName}"
         //Use 'engagementName' further in your pipeline
