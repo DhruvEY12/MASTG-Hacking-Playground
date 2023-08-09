@@ -30,7 +30,6 @@ pipeline {
                         -F 'do_not_reactivate=false' \
                         -F 'verified=true' \
                         -F 'close_old_findings=true' \
-                        // -F 'engagement=${engagementName}' \
                         -F 'engagement=${engagementId}' \
                         -F 'push_to_jira=false' \
                         -F 'minimum_severity=Info' \
