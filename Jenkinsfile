@@ -6,44 +6,39 @@ pipeline {
   stages {
     stage('MobSF-Scan') {
       steps {
-        sh 'mobsfscan iOS/MSTG-JWT/ --json -o mobscan.json'
+        sh 'mobsfscan iOS/MSTG-JWT/ --json -o mobsfscan.json'
       }
     }
     stage('Push to DefectDojo') {
-            environment {
-                DEFECTDOJO_API_KEY = credentials('DefectDojo-API-Token')  // Your DefectDojo API key credentials ID
-                DEFECTDOJO_URL = 'https://defectdojo.dalmiabharat.com'  // Replace with your DefectDojo URL
-            }
-            steps {
-                script {
-                    def scanJSONPath = "${WORKSPACE}/mobscan.json"
-                    def scanJSONContent = readFile file: scanJSONPath
-                    def defectDojoPayload = [
-                        product_name: 'Product-II',
-                        engagement: 'Mobsfscan Report',
-                        scan_type: 'Mobsfscan Scan',
-                        verified: true,
-                        active: true
-                    ]
-
-                    // Upload scan JSON to DefectDojo
-                    def response = httpRequest(
-                        acceptType: 'APPLICATION_JSON',
-                        contentType: 'APPLICATION_JSON',
-                        customHeaders: [[name: 'Authorization', value: "Token ${DEFECTDOJO_API_KEY}"]],
-                        httpMode: 'POST',
-                        requestBody: groovy.json.JsonOutput.toJson(defectDojoPayload),
-                        responseHandle: 'NONE',
-                        url: "${DEFECTDOJO_URL}/api/v2/reimport-scan/"
-                    )
-
-                    if (response.status == 201) {
-                        echo "Scan JSON uploaded successfully to DefectDojo."
-                    } else {
-                        echo "Failed to upload the scan JSON to DefectDojo. Status: ${response.status}"
-                    }
-                }
-            }
+      steps {
+        script {
+        def engagementName = "Engagement-${BUILD_NUMBER}-${currentBuild.timestamp.format('yyyyMMdd-HHmmss')}"
+        echo "Generated Engagement Name: ${engagementName}"
+        // Use 'engagementName' further in your pipeline
         }
+        sh '''
+        curl -X 'POST' \
+        'https://defectdojo.dalmiabharat.com/api/v2/reimport-scan/' \
+        -H 'accept: application/json' \
+        -H 'Authorization: Token 212983a2789afcd09f252a66d83b46a8fa4a8c39' \
+        -H 'Content-Type: multipart/form-data' \
+        -H 'X-CSRFTOKEN: agVi7AHZPZ13PBfCOABb4yn6v12KIUNoLvf34b9vNHS0X2qig1Exvd6J0Nnkw7YO' \
+        -F 'active=true' \
+        -F 'do_not_reactivate=false' \
+        -F 'verified=true' \
+        -F 'close_old_findings=true' \
+        -F 'engagement_name=${engagementName}' \
+        -F 'push_to_jira=false' \
+        -F 'minimum_severity=Info' \
+        -F 'close_old_findings_product_scope=false' \
+        -F 'create_finding_groups_for_all_findings=true' \
+        -F 'tags=mobsf' \
+        -F 'product_name=Product-II' \
+        -F 'file=@mobsfscan.json;type=application/json' \
+        -F 'auto_create_context=true' \
+        -F 'scan_type=Mobsfscan Scan' 
+        '''
+      }      
+    }
   }
 }
