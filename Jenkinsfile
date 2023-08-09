@@ -11,15 +11,12 @@ pipeline {
             steps {
                 script {
                     def buildNumber = currentBuild.getNumber()
-                    // def engagementId = buildNumber.toString()
                     def timestamp = new Date().format("dd-MM-yyyy_HH:mm:ss", TimeZone.getTimeZone("Asia/Kolkata"))
                     def engagementName = "Engagement-${buildNumber}_Timestamp-${timestamp}"
 
                     echo "Engagement Name: ${engagementName}"
-                    // echo "Engagement ID: ${engagementId}"
                     
                     // Use the engagementName in your curl command
-                    // sh "curl -X POST -d 'engagement=${engagementName}' http://your-api-endpoint"
                        sh "curl -X 'POST' \
                         'https://defectdojo.dalmiabharat.com/api/v2/reimport-scan/' \
                         -H 'accept: application/json' \
