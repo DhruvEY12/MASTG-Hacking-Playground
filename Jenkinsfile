@@ -11,11 +11,11 @@ pipeline {
     }
     stage('Push to DefectDojo') {
       steps {
-        //script {
-        //def engagementName = "Engagement-${BUILD_NUMBER}-${currentBuild.timestamp.format('yyyyMMdd-HHmmss')}"
-        //echo "Generated Engagement Name: ${engagementName}"
-        // Use 'engagementName' further in your pipeline
-        //}
+        script {
+        def engagementName = "Engagement-${BUILD_ID}"
+        echo "Generated Engagement Name: ${engagementName}"
+        //Use 'engagementName' further in your pipeline
+        }
         sh '''
         curl -X 'POST' \
         'https://defectdojo.dalmiabharat.com/api/v2/reimport-scan/' \
@@ -27,7 +27,7 @@ pipeline {
         -F 'do_not_reactivate=false' \
         -F 'verified=true' \
         -F 'close_old_findings=true' \
-        -F 'engagement_name=Mobsf Scan' \
+        -F 'engagement_name=${engagementName}' \
         -F 'push_to_jira=false' \
         -F 'minimum_severity=Info' \
         -F 'close_old_findings_product_scope=false' \
