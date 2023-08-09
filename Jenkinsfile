@@ -3,12 +3,10 @@ pipeline {
     
     stages {
         stage('MobSF-Scan') {
-            script {
-                steps {
-                    sh 'mobsfscan iOS/MSTG-JWT/ --json -o mobsfscan.json'
-                }
-              }
-            }
+      steps {
+        sh 'mobsfscan iOS/MSTG-JWT/ --json -o mobsfscan.json'
+      }
+    }
         stage('Create Engagement') {
             steps {
                 script {
