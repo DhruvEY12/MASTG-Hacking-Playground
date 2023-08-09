@@ -9,17 +9,16 @@ pipeline {
         sh 'mobsfscan iOS/MSTG-JWT/ --json -o mobsfscan.json'
       }
     }
-    // stage('Generate Engagement Name') {
-    //         steps {
-    //             script {
-    //                 def engagementName = "Engagement-${BUILD_NUMBER}-${currentBuild.timestamp.format('yyyyMMdd-HHmmss')}"
-    //                 echo "Generated Engagement Name: ${engagementName}"
+    stage('Generate Engagement Name') {
+      steps {
+        def engagementName = "Engagement-${BUILD_NUMBER}-${currentBuild.timestamp.format('yyyyMMdd-HHmmss')}"
+        echo "Generated Engagement Name: ${engagementName}"
 
-    //                 // Store the engagementName in an environment variable
-    //                 env.ENGAGEMENT_NAME = engagementName
-    //             }
-    //         }
-    //     }
+        // Store the engagementName in an environment variable
+        env.ENGAGEMENT_NAME = engagementName
+        }
+      }
+    }
     // stage('Push to DefectDojo') {
     //   steps {
     //     script {
@@ -78,4 +77,3 @@ pipeline {
     //   }
     // }
   }
-}
