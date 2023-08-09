@@ -12,7 +12,7 @@ pipeline {
                 script {
                     def buildNumber = currentBuild.getNumber()
                     def timestamp = new Date().format("dd-MM-yyyy_HH:mm:ss", TimeZone.getTimeZone("Asia/Kolkata"))
-                    def engagementName = Engagement-${buildNumber}_Timestamp-${timestamp}
+                    def engagementName = "Engagement-${buildNumber}_Timestamp-${timestamp}"
 
                     echo "Engagement Name: ${engagementName}"
                     
